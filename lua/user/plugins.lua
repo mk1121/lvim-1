@@ -1,7 +1,7 @@
 local M = {}
 
 M.config = function()
-  local neoclip_req = { "tami5/sqlite.lua", module = "sqlite" }
+  local neoclip_req = { "kkharji/sqlite.lua", module = "sqlite" }
   if lvim.builtin.neoclip.enable_persistent_history == false then
     neoclip_req = {}
   end
@@ -21,6 +21,7 @@ M.config = function()
     {
       "catppuccin/nvim",
       as = "catppuccin",
+      run = ":CatppuccinCompile",
       setup = function()
         vim.g.catppuccin_flavour = "mocha"
       end,
@@ -678,6 +679,27 @@ M.config = function()
       ft = "python",
       event = { "BufRead", "BufNew" },
       disable = not lvim.builtin.python_programming.active,
+    },
+    {
+      "mxsdev/nvim-dap-vscode-js",
+      ft = {
+        "javascript",
+        "javascriptreact",
+        "javascript.jsx",
+        "typescript",
+        "typescriptreact",
+        "typescript.tsx",
+      },
+      opt = true,
+      event = { "BufReadPre", "BufNew" },
+      config = function()
+        require("dap-vscode-js").setup {
+          debugger_path = vim.fn.stdpath "data" .. "/mason/packages/js-debug-adapter",
+          debugger_cmd = { "js-debug-adapter" },
+          adapters = { "pwa-node", "pwa-chrome", "pwa-msedge", "node-terminal", "pwa-extensionHost" },
+        }
+      end,
+      disable = not lvim.builtin.web_programming.active,
     },
     -- TODO: set this up when https://github.com/neovim/neovim/pull/20130 is merged
     -- {

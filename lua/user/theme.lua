@@ -32,12 +32,54 @@ M.rose_pine = function()
     },
     highlight_groups = {
       Boolean = { fg = "love" },
-      Cursor = { fg = "#232136", bg = "#e0def4" },
-      NormalFloat = { bg = "#191724" },
-      VertSplit = { fg = "#21202e", bg = "#21202e" },
-      SignColumn = { fg = "#e0def4", bg = "NONE" },
-      SignColumnSB = { fg = "#e0def4", bg = "NONE" },
-      mkdInlineURL = { fg = "#c4a7e7", style = "NONE" },
+      Cursor = { fg = "#232136", bg = "text" },
+      NormalFloat = { bg = "base" },
+      MsgArea = { fg = "text" },
+      VertSplit = { fg = "highlight_low", bg = "highlight_low" },
+      SignColumn = { fg = "text", bg = "none" },
+      SignColumnSB = { fg = "text", bg = "none" },
+      mkdInlineURL = { fg = "iris", style = "none" },
+      ["@variable"] = { fg = "text" },
+      ["@variable.builtin"] = { fg = "love" },
+      ["@type"] = { fg = "foam" },
+      ["@text"] = { fg = "text" },
+      ["@property"] = { fg = "iris" },
+      ["@parameter"] = { fg = "iris" },
+      ["@constant.builtin"] = { fg = "love" },
+      ["@constant"] = { fg = "foam" },
+      ["@constructor"] = { fg = "foam" },
+      ["@field"] = { fg = "foam" },
+      ["@function.builtin"] = { fg = "love" },
+      ["@function"] = { fg = "rose" },
+      ["@include"] = { fg = "pine" },
+      ["@keyword"] = { fg = "pine" },
+      ["@keyword.operator"] = { fg = "subtle" },
+      ["@label"] = { fg = "foam" },
+      ["@punctuation.bracket"] = { fg = "muted" },
+      ["@punctuation.delimiter"] = { fg = "muted" },
+      ["@punctuation.special"] = { fg = "muted" },
+      ["@string.escape"] = { fg = "pine" },
+      ["@string.special"] = { fg = "gold" },
+      ["@tag"] = { fg = "foam" },
+      ["@tag.delimiter"] = { fg = "subtle" },
+      ["@text.title"] = { fg = "iris", style = "bold" },
+      ["@text.uri"] = { fg = "iris" },
+      CmpItemKindText = { fg = "gold" },
+      CmpItemKindConstructor = { fg = "foam" },
+      CmpItemKindField = { fg = "foam" },
+      CmpItemKindValue = { fg = "text" },
+      CmpItemKindEvent = { fg = "text" },
+      CmpItemKindUnit = { fg = "gold" },
+      CmpItemKindConstant = { fg = "gold" },
+      CmpItemKindModule = { fg = "iris" },
+      CmpItemKindEnum = { fg = "#c5a8e8" },
+      CmpItemKindStruct = { fg = "#56949f" },
+      CmpItemKindTypeParameter = { fg = "foam" },
+      CmpItemKindTypeKeyword = { fg = "pine" },
+      CmpItemKindTypeDirectory = { fg = "foam" },
+      CmpItemKindReference = { fg = "gold" },
+      CmpItemKindOperator = { fg = "subtle" },
+      CmpItemKindTypeSnippet = { fg = "pine" },
     },
   }
 end
@@ -87,10 +129,10 @@ M.catppuccin = function()
       },
       indent_blankline = {
         enabled = true,
-        colored_indent_levels = true,
+        colored_indent_levels = false,
       },
       gitsigns = lvim.builtin.gitsigns.active,
-      notify = lvim.builtin.notify.active,
+      notify = lvim.builtin.noice.active,
       nvimtree = true,
       neotree = lvim.builtin.tree_provider == "neo-tree",
       overseer = lvim.builtin.task_runner == "overseer",
@@ -102,6 +144,10 @@ M.catppuccin = function()
     highlight_overrides = {
       mocha = {
         NormalFloat = { fg = "#CDD6F4", bg = "#151521" },
+        CmpItemKindEnum = { fg = "#B4BEFE" },
+        CmpItemKindEnumMember = { fg = "#F5C2E7" },
+        CmpItemMenu = { fg = "#7F849C" },
+        CmpItemAbbr = { fg = "#BAC2DE" },
       },
     },
   }
@@ -140,13 +186,15 @@ M.kanagawa = function()
     colors = { sumiInk1b = "#1b1b23" },
     overrides = {
       diffRemoved = { fg = "#E46876" },
-      NvimTreeFolderIcon = { fg = "#7e9cd8" }
+      NvimTreeFolderIcon = { fg = "#7e9cd8" },
+      CmpItemKindEnum = { fg = "#957FB8" },
     },
   }
 end
 
 M.colors = {
   tokyonight_colors = {
+    cmp_border = "#181924",
     none = "NONE",
     bg_dark = "#1f2335",
     bg_alt = "#1a1b26",
@@ -185,6 +233,7 @@ M.colors = {
   },
 
   rose_pine_colors = {
+    cmp_border = "#191724",
     none = "NONE",
     bg = "#2a273f",
     fg = "#e0def4",
@@ -222,6 +271,7 @@ M.colors = {
   },
 
   catppuccin_colors = {
+    cmp_border = "#151521",
     rosewater = "#F5E0DC",
     flamingo = "#F2CDCD",
     violet = "#DDB6F2",
@@ -255,6 +305,7 @@ M.colors = {
   },
 
   kanagawa_colors = {
+    cmp_border = "#16161D",
     bg = "#21212A",
     bg_alt = "#1F1F28",
     bg_br = "#363646",
@@ -323,6 +374,10 @@ M.hi_colors = function()
 end
 
 M.telescope_theme = function()
+  local function link(group, other)
+    vim.cmd("highlight! link " .. group .. " " .. other)
+  end
+
   local function set_bg(group, bg)
     vim.cmd("hi " .. group .. " guibg=" .. bg)
   end
@@ -331,10 +386,25 @@ M.telescope_theme = function()
     vim.cmd("hi " .. group .. " guifg=" .. fg .. " guibg=" .. bg)
   end
 
+  set_fg_bg("SpecialComment", "#9ca0a4", "bold")
+  link("FocusedSymbol", "LspHighlight")
+  link("LspCodeLens", "SpecialComment")
+  link("LspDiagnosticsSignError", "DiagnosticError")
+  link("LspDiagnosticsSignHint", "DiagnosticHint")
+  link("LspDiagnosticsSignInfo", "DiagnosticInfo")
+  link("NeoTreeDirectoryIcon", "NvimTreeFolderIcon")
+  link("IndentBlanklineIndent1 ", "@comment")
+
   -- NOTE: these are my personal preferences
   if lvim.builtin.time_based_themes then
     local _time = os.date "*t"
     local current_colors = M.current_colors()
+    set_fg_bg("CmpBorder", current_colors.cmp_border, current_colors.cmp_border)
+    set_fg_bg("NoiceCmdlinePopupBorder", current_colors.cmp_border, current_colors.cmp_border)
+    set_fg_bg("NoiceCmdlinePopupBorderCmdline", current_colors.cmp_border, current_colors.cmp_border)
+    set_fg_bg("NoiceCmdlinePopupBorderFilter", current_colors.cmp_border, current_colors.cmp_border)
+    set_fg_bg("NoiceCmdlinePopupBorderLua", current_colors.cmp_border, current_colors.cmp_border)
+    set_fg_bg("NoiceCmdlinePopupBorderSearch", current_colors.cmp_border, current_colors.cmp_border)
     set_fg_bg("diffAdded", current_colors.git.add, "NONE")
     set_fg_bg("diffRemoved", current_colors.git.delete, "NONE")
     set_fg_bg("diffChanged", current_colors.git.change, "NONE")

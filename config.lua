@@ -4,7 +4,7 @@ lvim.colorscheme = "tokyonight" -- set to a custom theme
 lvim.builtin.time_based_themes = true -- set false to use your own configured theme
 lvim.transparent_window = false -- enable/disable transparency
 lvim.debug = false
-vim.lsp.set_log_level "warn"
+vim.lsp.set_log_level "error"
 lvim.log.level = "warn"
 -- vim.o.conceallevel = 2 -- uncomment if you want to see concealed text
 require("user.neovim").config()
@@ -65,20 +65,22 @@ lvim.builtin.lir.active = false
 lvim.builtin.breadcrumbs.active = false
 lvim.builtin.illuminate.active = false
 lvim.builtin.indentlines.active = true
-lvim.builtin.notify.active = true
 lvim.builtin.noice = { active = false }
 lvim.builtin.go_programming = { active = false } -- gopher.nvim + nvim-dap-go
 lvim.builtin.python_programming = { active = false } -- swenv.nvim + nvim-dap-python
 lvim.builtin.web_programming = { active = true} -- typescript.nvim + package-info.nvimconfig
 lvim.builtin.rust_programming = { active = false } -- rust_tools.nvim + crates.nvim
+lvim.builtin.cmp.cmdline.enable = false
+lvim.builtin.borderless_cmp = false
 
 -- =========================================
 
 lvim.keys.normal_mode["<C-l>"] = ":put =printf('console.log('' 🔔 %s 👉 %s 👉 %s:'', %s);', line('.'), expand('%:t'), expand('<cword>'), expand('<cword>'))<CR>"
 -- Custom User Config
 -- =========================================
-local user = os.getenv "USER"
+local user = vim.env.USER
 if user and user == "abz" then
+  lvim.reload_config_on_save = true
   require("user.custom_user").config()
 end
 
@@ -90,6 +92,9 @@ if lvim.builtin.winbar_provider == "navic" then
     "<cmd>lua require('telescope.builtin').buffers(require('telescope.themes').get_dropdown{previewer = false, initial_mode='normal'})<cr>"
   lvim.builtin.bufferline.active = false
   lvim.builtin.breadcrumbs.active = true
+end
+if lvim.builtin.breadcrumbs.active and lvim.builtin.noice.active then
+  table.insert(lvim.builtin.breadcrumbs.winbar_filetype_exclude, "vim")
 end
 lvim.builtin.nvimtree.active = lvim.builtin.tree_provider == "nvimtree"
 lvim.builtin.latex = {
