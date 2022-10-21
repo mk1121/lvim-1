@@ -1,5 +1,3 @@
--- Neovim
--- =========================================
 lvim.format_on_save = false
 lvim.leader = " "
 lvim.colorscheme = "tokyonight" -- set to a custom theme
@@ -22,7 +20,7 @@ lvim.builtin.tabnine = { active = true } -- change to false if you don't like ta
 lvim.builtin.persistence = { active = true } -- change to false if you don't want persistence
 lvim.builtin.presence = { active = false } -- change to true if you want discord presence
 lvim.builtin.orgmode = { active = false } -- change to true if you want orgmode.nvim
-lvim.builtin.dap.active = false -- change this to enable/disable debugging
+lvim.builtin.dap.active = true -- change this to enable/disable debugging
 lvim.builtin.fancy_statusline = { active = true } -- enable/disable fancy statusline
 lvim.builtin.fancy_wild_menu = { active = false } -- enable/disable cmp-cmdline
 lvim.builtin.fancy_diff = { active = false } -- enable/disable fancier git diff
@@ -49,12 +47,12 @@ lvim.builtin.metals = {
   serverVersion = "0.11.8",
 }
 lvim.builtin.collaborative_editing = { active = false } -- enable/disable collaborative editing
-lvim.builtin.file_browser = { active = false } -- enable/disable telescope file browser
-lvim.builtin.sniprun = { active = false } -- enable/disable sniprun
+lvim.builtin.file_browser = { active = true } -- enable/disable telescope file browser
+lvim.builtin.sniprun = { active = true } -- enable/disable sniprun
 lvim.builtin.tag_provider = "symbols-outline" -- change this to use different tag providers ( symbols-outline or vista )
 lvim.builtin.editorconfig = { active = true } -- enable/disable editorconfig
 lvim.builtin.global_statusline = false -- set true to use global statusline
-lvim.builtin.dressing = { active = false } -- enable to override vim.ui.input and vim.ui.select with telescope
+lvim.builtin.dressing = { active = true } -- enable to override vim.ui.input and vim.ui.select with telescope
 lvim.builtin.refactoring = { active = false } -- enable to use refactoring.nvim code_actions
 lvim.builtin.tmux_lualine = false -- use vim-tpipeline to integrate lualine and tmux
 lvim.builtin.lsp_lines = false -- enable/disable lsp_lines to display lsp virtual text below instead of behind
@@ -71,9 +69,12 @@ lvim.builtin.notify.active = true
 lvim.builtin.noice = { active = false }
 lvim.builtin.go_programming = { active = false } -- gopher.nvim + nvim-dap-go
 lvim.builtin.python_programming = { active = false } -- swenv.nvim + nvim-dap-python
-lvim.builtin.web_programming = { active = false } -- typescript.nvim + package-info.nvimconfig
+lvim.builtin.web_programming = { active = true} -- typescript.nvim + package-info.nvimconfig
 lvim.builtin.rust_programming = { active = false } -- rust_tools.nvim + crates.nvim
 
+-- =========================================
+
+lvim.keys.normal_mode["<C-l>"] = ":put =printf('console.log('' 🔔 %s 👉 %s 👉 %s:'', %s);', line('.'), expand('%:t'), expand('<cword>'), expand('<cword>'))<CR>"
 -- Custom User Config
 -- =========================================
 local user = os.getenv "USER"

@@ -147,7 +147,7 @@ M.config = function()
     },
   }
 
-  local firefoxExecutable = "/usr/bin/firefox"
+  local firefoxExecutable = "/snap/bin/firefox"
   if vim.fn.has "mac" == 1 then
     firefoxExecutable = "/Applications/Firefox.app/Contents/MacOS/firefox"
   end

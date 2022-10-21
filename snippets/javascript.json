@@ -1,0 +1,42 @@
+{
+  "react-native functional component": {
+    "prefix": "rnfc",
+    "body": [
+      "import React from 'react';",
+      "import { View,StyleSheet,Text } from 'react-native';",
+      "",
+      "function ${TM_FILENAME_BASE}(props) {",
+      "  return (",
+      "   <View style={styles.container}>",
+      "     <Text> ${1:Hello ${TM_FILENAME_BASE}} </Text>",
+      "   </View>",
+      "  );",
+      "}",
+      "",
+      "const styles = StyleSheet.create({",
+      "  container: {}",
+      "})",
+      "export default ${TM_FILENAME_BASE};"
+    ]
+  },
+
+  "react-native function component with tailwindcss": {
+    "prefix": "rnfct",
+    "body": [
+      "import React from 'react';",
+      "import { View,Text } from 'react-native';",
+      "",
+      "function ${TM_FILENAME_BASE}(props) {",
+      "  return (",
+      "    <View className='${2:flex-1 justify-center items-center}'>",
+      "      <Text className='${3:text-green-400 text-3xl}'>",
+      "        ${1:Hello ${TM_FILENAME_BASE}}",
+      "         </Text>",
+      "    </View>",
+      "  );",
+      "}",
+      "",
+      "export default ${TM_FILENAME_BASE};"
+    ]
+  }
+}
