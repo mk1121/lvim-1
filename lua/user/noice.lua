@@ -6,16 +6,57 @@ M.config = function()
     return
   end
   noice.setup {
-    cmdline = {
-      view = "cmdline",
+    lsp_progress = {
+      enabled = false,
     },
+    views = {
+      cmdline_popup = {
+        win_options = {
+          winblend = 5,
+          winhighlight = {
+            Normal = "NormalFloat",
+            FloatBorder = "NoiceCmdlinePopupBorder",
+            IncSearch = "",
+            Search = "",
+          },
+          cursorline = false,
+        },
+        filter_options = {
+          {
+            filter = { event = "cmdline", find = "^%s*[/?]" },
+            opts = {
+              border = {
+                text = {
+                  top = " Search ",
+                },
+              },
+              win_options = {
+                winhighlight = {
+                  Normal = "NormalFloat",
+                  FloatBorder = "NoiceCmdlinePopupBorder",
+                  IncSearch = "",
+                  Search = "",
+                },
+              },
+            },
+          },
+        },
+      },
+    },
+    -- cmdline = {
+    --   view = "cmdline",
+    -- },
     popupmenu = {
       enabled = not lvim.builtin.fancy_wild_menu.active,
     },
     notify = {
-      enabled = lvim.builtin.notify.active,
+      enabled = true,
     },
     routes = {
+      {
+        view = "notify",
+        filter = { event = "msg_showmode" },
+      },
       {
         filter = { event = "msg_show", kind = "search_count" },
         opts = { skip = true },
@@ -23,13 +64,6 @@ M.config = function()
       {
         view = "split",
         filter = { event = "msg_show", min_height = 20 },
-      },
-      {
-        filter = {
-          event = "msg_show",
-          find = "E486:",
-        },
-        opts = { skip = true },
       },
       {
         filter = {

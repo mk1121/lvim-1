@@ -1,6 +1,7 @@
 local M = {}
 
 M.config = function()
+  local mason_path = vim.fn.glob(vim.fn.stdpath "data" .. "/mason/")
   local function sep_os_replacer(str)
     local result = str
     local path_sep = package.config:sub(1, 1)
@@ -135,21 +136,35 @@ M.config = function()
       cwd = "${workspaceFolder}",
     },
   }
+  local firefox_path = mason_path .. "packages/firefox-debug-adapter/"
 
   dap.adapters.firefox = {
     type = "executable",
     command = "node",
     args = {
-      join_path(
-        vim.fn.expand "~/",
-        "/.vscode/extensions/firefox-devtools.vscode-firefox-debug-2.9.6/dist/adapter.bundle.js"
-      ),
+      firefox_path .. "dist/adapter.bundle.js",
     },
   }
 
   local firefoxExecutable = "/snap/bin/firefox"
   if vim.fn.has "mac" == 1 then
     firefoxExecutable = "/Applications/Firefox.app/Contents/MacOS/firefox"
+  end
+  local custom_adapter = "pwa-node-custom"
+  dap.adapters[custom_adapter] = function(cb, config)
+    if config.preLaunchTask then
+      local async = require "plenary.async"
+      local notify = require("notify").async
+
+      async.run(function()
+        ---@diagnostic disable-next-line: missing-parameter
+        notify("Running [" .. config.preLaunchTask .. "]").events.close()
+      end, function()
+        vim.fn.system(config.preLaunchTask)
+        config.type = "pwa-node"
+        dap.run(config)
+      end)
+    end
   end
 
   dap.configurations.typescript = {
@@ -164,7 +179,7 @@ M.config = function()
     },
     {
       type = "chrome",
-      name = "chrome",
+      name = "Debug with Chrome",
       request = "attach",
       program = "${file}",
       -- cwd = "${workspaceFolder}",
@@ -187,6 +202,85 @@ M.config = function()
       url = "http://localhost:6969",
       webRoot = "${workspaceFolder}",
       firefoxExecutable = firefoxExecutable,
+    },
+    {
+      name = "Launch",
+      type = "pwa-node",
+      request = "launch",
+      program = "${file}",
+      rootPath = "${workspaceFolder}",
+      cwd = "${workspaceFolder}",
+      sourceMaps = true,
+      skipFiles = { "<node_internals>/**" },
+      protocol = "inspector",
+      console = "integratedTerminal",
+    },
+    {
+      name = "Attach to node process",
+      type = "pwa-node",
+      request = "attach",
+      rootPath = "${workspaceFolder}",
+      processId = require("dap.utils").pick_process,
+    },
+    {
+      name = "Debug Main Process (Electron)",
+      type = "pwa-node",
+      request = "launch",
+      program = "${workspaceFolder}/node_modules/.bin/electron",
+      args = {
+        "${workspaceFolder}/dist/index.js",
+      },
+      outFiles = {
+        "${workspaceFolder}/dist/*.js",
+      },
+      resolveSourceMapLocations = {
+        "${workspaceFolder}/dist/**/*.js",
+        "${workspaceFolder}/dist/*.js",
+      },
+      rootPath = "${workspaceFolder}",
+      cwd = "${workspaceFolder}",
+      sourceMaps = true,
+      skipFiles = { "<node_internals>/**" },
+      protocol = "inspector",
+      console = "integratedTerminal",
+    },
+    {
+      name = "Compile & Debug Main Process (Electron)",
+      type = custom_adapter,
+      request = "launch",
+      preLaunchTask = "npm run build-ts",
+      program = "${workspaceFolder}/node_modules/.bin/electron",
+      args = {
+        "${workspaceFolder}/dist/index.js",
+      },
+      outFiles = {
+        "${workspaceFolder}/dist/*.js",
+      },
+      resolveSourceMapLocations = {
+        "${workspaceFolder}/dist/**/*.js",
+        "${workspaceFolder}/dist/*.js",
+      },
+      rootPath = "${workspaceFolder}",
+      cwd = "${workspaceFolder}",
+      sourceMaps = true,
+      skipFiles = { "<node_internals>/**" },
+      protocol = "inspector",
+      console = "integratedTerminal",
+    },
+    {
+      type = "pwa-node",
+      request = "launch",
+      name = "Debug Jest Tests",
+      -- trace = true, -- include debugger info
+      runtimeExecutable = "node",
+      runtimeArgs = {
+        "./node_modules/jest/bin/jest.js",
+        "--runInBand",
+      },
+      rootPath = "${workspaceFolder}",
+      cwd = "${workspaceFolder}",
+      console = "integratedTerminal",
+      internalConsoleOptions = "neverOpen",
     },
   }
 
@@ -211,7 +305,7 @@ M.config = function()
     },
   }
 
-  local path = vim.fn.glob(vim.fn.stdpath "data" .. "/mason/packages/codelldb/extension/")
+  local path = vim.fn.glob(mason_path .. "packages/codelldb/extension/")
     or vim.fn.expand "~/" .. ".vscode/extensions/vadimcn.vscode-lldb-1.8.1/"
   local lldb_cmd = path .. "adapter/codelldb"
 
@@ -309,6 +403,28 @@ M.config = function()
     end,
     console = "integratedTerminal",
   })
+  dap.adapters.php = {
+    type = "executable",
+    command = "node",
+    args = { mason_path .. "packages/php-debug-adapter/extension/out/phpDebug.js" },
+  }
+  dap.configurations.php = {
+    {
+      name = "Listen for Xdebug",
+      type = "php",
+      request = "launch",
+      port = 9003,
+    },
+    {
+      name = "Debug currently open script",
+      type = "php",
+      request = "launch",
+      port = 9003,
+      cwd = "${fileDirname}",
+      program = "${file}",
+      runtimeExecutable = "php",
+    },
+  }
 end
 
 return M

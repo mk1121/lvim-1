@@ -229,7 +229,9 @@ M.config = function()
     lvim.keys.normal_mode["gx"] =
       [[<cmd>lua os.execute("xdg-open " .. vim.fn.shellescape(vim.fn.expand "<cWORD>")); vim.cmd "redraw!"<cr>]]
   end
-  set_bufferline_keymaps()
+  if lvim.builtin.bufferline.active then
+    set_bufferline_keymaps()
+  end
   if lvim.builtin.sidebar.active then
     lvim.keys.normal_mode["E"] = ":SidebarNvimToggle<cr>"
   end
@@ -423,7 +425,7 @@ M.config = function()
 
   -- My wezterm is weird
   -- =========================================
-  local user = os.getenv "USER"
+  local user = vim.env.USER
   if user and user == "abz" then
     M.set_wezterm_keybindings()
   end
