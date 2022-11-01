@@ -1,4 +1,13 @@
 {
+  "import React": {
+    "prefix": "imr",
+    "body": ["import React from 'react';"]
+  },
+  "react-native import MaterialCommunityIcons": {
+    "prefix": "rnimm",
+    "body": ["import { MaterialCommunityIcons } from '@expo/vector-icons';"]
+  },
+
   "react-native functional component": {
     "prefix": "rnfc",
     "body": [
