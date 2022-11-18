@@ -40,6 +40,7 @@ I've customized my ZSH/Tmux/[Wezterm](https://github.com/abzcoding/wezterm) too 
   - [Plugin: Ultest](#plugin-ultest)
   - [Plugin: Neotest](#plugin-neotest)
   - [Plugin: Spectre](#plugin-spectre)
+  - [Plugin: SSR](#plugin-ssr)
   - [Plugin: Copilot](#plugin-copilot)
   - [Plugin: Lsp_Lines](#plugin-lsp_lines)
   - [Plugin: Overseer](#plugin-overseer)
@@ -113,7 +114,7 @@ lvim.plugins = {
   - `lvim.builtin.smooth_scroll= ""`
 - if you want an obvious focused window, and you don't get seizures from it
   - `lvim.builtin.nonumber_unfocus = true`
-- choose between [hop](https://github.com/phaazon/hop.nvim) and [lightspeed](https://github.com/ggandor/lightspeed.nvim) as your favorite motion provider
+- choose between [hop](https://github.com/phaazon/hop.nvim) and [leap](https://github.com/ggandor/leap.nvim) as your favorite motion provider
   - `lvim.builtin.motion_provider = "hop"`
 - choose between [filename->incline](https://github.com/b0o/incline.nvim) and [treesitter->winbar](https://github.com/fgheng/winbar.nvim) or [navic](https://github.com/SmiteshP/nvim-navic) as your winbar provider
   - `lvim.builtin.winbar_provider = "treesitter"`
@@ -403,11 +404,12 @@ _Symbols Outline_
 - [clangd_extensions.nvim](https://github.com/p00f/clangd_extensions.nvim)
 - [crates.nvim](https://github.com/Saecki/crates.nvim)
 - [refactoring.nvim](https://github.com/ThePrimeagen/refactoring.nvim)
+- [ssr.nvim](https://github.com/cshuaimin/ssr.nvim)
 
 ### Optional Plugins
 
 - [Hop](https://github.com/phaazon/hop.nvim)
-- [Lightspeed](https://github.com/ggandor/lightspeed.nvim)
+- [Leap](https://github.com/ggandor/leap.nvim)
 - [remember.nvim](https://github.com/vladdoster/remember.nvim)
 - [Tabnine](https://github.com/tzachar/compe-tabnine)
 - [Persistence](https://github.com/folke/persistence.nvim)
@@ -447,6 +449,8 @@ _Symbols Outline_
 - [neo-tree.nvim](https://github.com/nvim-neo-tree/neo-tree.nvim/blob/v2.x)
 - [noice.nvim](https://github.com/folke/noice.nvim)
 - [nvim-dap-vscode-js](https://github.com/mxsdev/nvim-dap-vscode-js)
+- [inc-rename](https://github.com/smjonas/inc-rename.nvim)
+- [hlargs.nvim](https://github.com/m-demare/hlargs.nvim)
 
 </details>
 
@@ -511,15 +515,15 @@ Note that,
 
 ### Motion
 
-| Key                         | Mode | Action                  | Plugin or Mapping                                                   |
-| --------------------------- | :--: | ----------------------- | ------------------------------------------------------------------- |
-| <kbd>f</kbd>                |  𝐍   | find next character     | <small>HopChar1CurrentLineAC</small> or <small>Lightspeed_f</small> |
-| <kbd>F</kbd>                |  𝐍   | find previous character | <small>HopChar1CurrentLineBC</small> or <small>Lightspeed_F</small> |
-| <kbd>s</kbd>                |  𝐍   | find character          | <small>HopChar2MW</small> or <small>Lightspeed_s</small>            |
-| <kbd>S</kbd>                |  𝐍   | find word               | <small>HopWordMW</small> or <small>Lightspeed_S</small>             |
-| <kbd>Alt</kbd>+<kbd>a</kbd> |  𝐈   | select all              | <small>ggVG</small>                                                 |
-| <kbd>Alt</kbd>+<kbd>a</kbd> |  𝐍   | increment number        | <small>C-A</small>                                                  |
-| <kbd>Alt</kbd>+<kbd>x</kbd> |  𝐍   | decrement number        | <small>C-X</small>                                                  |
+| Key                         | Mode | Action                  | Plugin or Mapping                                             |
+| --------------------------- | :--: | ----------------------- | ------------------------------------------------------------- |
+| <kbd>f</kbd>                |  𝐍   | find next character     | <small>HopChar1CurrentLineAC</small> or <small>leap_f</small> |
+| <kbd>F</kbd>                |  𝐍   | find previous character | <small>HopChar1CurrentLineBC</small> or <small>leap_F</small> |
+| <kbd>s</kbd>                |  𝐍   | find character          | <small>HopChar2MW</small> or <small>leap_s</small>            |
+| <kbd>S</kbd>                |  𝐍   | find word               | <small>HopWordMW</small> or <small>leap_S</small>             |
+| <kbd>Alt</kbd>+<kbd>a</kbd> |  𝐈   | select all              | <small>ggVG</small>                                           |
+| <kbd>Alt</kbd>+<kbd>a</kbd> |  𝐍   | increment number        | <small>C-A</small>                                            |
+| <kbd>Alt</kbd>+<kbd>x</kbd> |  𝐍   | decrement number        | <small>C-X</small>                                            |
 
 ### LSP
 
@@ -693,6 +697,13 @@ Note that,
 | <kbd>Space</kbd>+<kbd>R</kbd>+<kbd>p</kbd> |  𝐍   | Replace word in project        |
 | <kbd>Space</kbd>+<kbd>R</kbd>+<kbd>w</kbd> |  𝐍   | Replace visually selected word |
 | <kbd>Space</kbd>+<kbd>R</kbd>+<kbd>f</kbd> |  𝐍   | Replace word in current buffer |
+
+### Plugin: SSR
+
+| Key                                        | Mode | Action                                          |
+| ------------------------------------------ | :--: | ----------------------------------------------- |
+| <kbd>Space</kbd>+<kbd>r</kbd>              |  𝐕   | Structural replace confirm using `<leader><cr>` |
+| <kbd>Space</kbd>+<kbd>R</kbd>+<kbd>s</kbd> |  𝐍   | Structural replace confirm using `<leader><cr>` |
 
 ### Plugin: Copilot
 

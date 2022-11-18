@@ -42,6 +42,7 @@ ChaosKube
 ChatOps
 Citrix
 Citus
+ClickJacking
 Cloudwatch
 Cobertura
 Codepen
@@ -239,6 +240,7 @@ Semgrep
 Sendmail
 Sentry
 Shibboleth
+Shodan
 Shopify
 Sidekiq
 Silverlight
@@ -422,6 +424,7 @@ deprovisions
 dequarantine
 dequarantined
 dequarantining
+dirsearch
 disambiguates
 discoverability
 dismissable
@@ -455,7 +458,9 @@ fuzzer
 gb
 gettext
 gitlabsos
+gitrob
 globals
+gobuster
 goroutine
 goroutines
 goto
@@ -495,6 +500,7 @@ jumplist
 kanban
 kanbans
 kaniko
+keyhacks
 keyset
 keyspace
 keytab
@@ -561,6 +567,7 @@ namespacing
 namespacings
 negatable
 neovim
+nmap
 noteable
 noteables
 npm
@@ -578,6 +585,7 @@ parallelization
 parallelizations
 paravirtualization
 passwordless
+pastebin
 performant
 pgLoader
 phaser
@@ -718,6 +726,7 @@ strikethrough
 strikethroughs
 stunnel
 stylelint
+subbrute
 subchart
 subcharts
 subfolder
@@ -798,6 +807,7 @@ treesitter
 triaged
 triages
 triaging
+truffleHog
 truthy
 ui
 unapplied
@@ -912,6 +922,7 @@ virtualizing
 vulnerabilities
 walkthrough
 walkthroughs
+wayback
 webpack
 webserver
 websocket

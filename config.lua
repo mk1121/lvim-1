@@ -10,7 +10,7 @@ lvim.log.level = "warn"
 require("user.neovim").config()
 lvim.lsp.code_lens_refresh = true
 lvim.lsp.diagnostics.virtual_text = false -- remove this line if you want to see inline errors
-lvim.lsp.automatic_servers_installation = false
+lvim.lsp.installer.setup.automatic_installation = false
 
 -- Customization
 -- =========================================
@@ -35,7 +35,7 @@ lvim.builtin.custom_web_devicons = false -- install https://github.com/Nguyen-Ho
 lvim.builtin.harpoon = { active = true } -- use the harpoon plugin
 lvim.builtin.remote_dev = { active = false } -- enable/disable remote development
 lvim.builtin.cursorline = { active = false } -- use a bit fancier cursorline
-lvim.builtin.motion_provider = "hop" -- change this to use different motion providers ( hop or lightspeed )
+lvim.builtin.motion_provider = "hop" -- change this to use different motion providers ( hop or leap )
 lvim.builtin.hlslens = { active = false } -- enable/disable hlslens
 lvim.builtin.csv_support = false -- enable/disable csv support
 lvim.builtin.sidebar = { active = false } -- enable/disable sidebar
@@ -65,13 +65,14 @@ lvim.builtin.lir.active = false
 lvim.builtin.breadcrumbs.active = false
 lvim.builtin.illuminate.active = false
 lvim.builtin.indentlines.active = true
-lvim.builtin.noice = { active = false }
+lvim.builtin.noice = { active = false } -- enables noice.nvim and inc-rename.nvim
 lvim.builtin.go_programming = { active = false } -- gopher.nvim + nvim-dap-go
 lvim.builtin.python_programming = { active = false } -- swenv.nvim + nvim-dap-python
 lvim.builtin.web_programming = { active = true} -- typescript.nvim + package-info.nvimconfig
 lvim.builtin.rust_programming = { active = false } -- rust_tools.nvim + crates.nvim
 lvim.builtin.cmp.cmdline.enable = false
 lvim.builtin.borderless_cmp = false
+lvim.builtin.colored_args = false -- if true then sets up hlargs.nvim
 
 -- =========================================
 

@@ -6,6 +6,17 @@ M.config = function()
     neoclip_req = {}
   end
   lvim.plugins = {
+    -- {
+    --   "folke/tokyonight.nvim",
+    --   config = function()
+    --     require("user.theme").tokyonight()
+    --     vim.cmd [[colorscheme tokyonight]]
+    --   end,
+    --   cond = function()
+    --     local _time = os.date "*t"
+    --     return (_time.hour >= 9 and _time.hour < 17) and lvim.builtin.time_based_themes
+    --   end,
+    -- },
     {
       "rose-pine/neovim",
       as = "rose-pine",
@@ -22,12 +33,9 @@ M.config = function()
       "catppuccin/nvim",
       as = "catppuccin",
       run = ":CatppuccinCompile",
-      setup = function()
-        vim.g.catppuccin_flavour = "mocha"
-      end,
       config = function()
         require("user.theme").catppuccin()
-        vim.cmd [[colorscheme catppuccin]]
+        vim.cmd [[colorscheme catppuccin-mocha]]
       end,
       cond = function()
         local _time = os.date "*t"
@@ -83,11 +91,11 @@ M.config = function()
       cmd = "Trouble",
     },
     {
-      "ggandor/lightspeed.nvim",
+      "ggandor/leap.nvim",
       config = function()
-        require("user.lightspeed").config()
+        require("user.leap").config()
       end,
-      disable = lvim.builtin.motion_provider ~= "lightspeed",
+      disable = lvim.builtin.motion_provider ~= "leap",
     },
     {
       "phaazon/hop.nvim",
@@ -510,6 +518,7 @@ M.config = function()
       config = function()
         require("user.fidget_spinner").config()
       end,
+      -- disable = lvim.builtin.noice.active,
     },
     {
       "michaelb/sniprun",
@@ -590,7 +599,7 @@ M.config = function()
       config = function()
         require("user.winb").config()
       end,
-      event = { "InsertEnter", "CursorMoved" },
+      event = { "InsertEnter", "CursorHoldI" },
       disable = lvim.builtin.winbar_provider ~= "treesitter",
     },
     {
@@ -600,7 +609,7 @@ M.config = function()
         require("user.gps").config()
       end,
       requires = "nvim-treesitter/nvim-treesitter",
-      event = { "InsertEnter", "CursorMoved" },
+      event = { "InsertEnter", "CursorHoldI" },
       disable = lvim.builtin.winbar_provider ~= "treesitter",
     },
     {
@@ -700,6 +709,37 @@ M.config = function()
         }
       end,
       disable = not lvim.builtin.web_programming.active,
+    },
+    {
+      "smjonas/inc-rename.nvim",
+      config = function()
+        require("inc_rename").setup()
+      end,
+      disable = not lvim.builtin.noice.active,
+    },
+    {
+      "m-demare/hlargs.nvim",
+      config = function()
+        require("hlargs").setup()
+      end,
+      requires = { "nvim-treesitter/nvim-treesitter" },
+      disable = not lvim.builtin.colored_args,
+    },
+    {
+      "cshuaimin/ssr.nvim",
+      config = function()
+        require("ssr").setup {
+          min_width = 50,
+          min_height = 5,
+          keymaps = {
+            close = "q",
+            next_match = "n",
+            prev_match = "N",
+            replace_all = "<leader><cr>",
+          },
+        }
+      end,
+      event = { "BufReadPost", "BufNew" },
     },
     -- TODO: set this up when https://github.com/neovim/neovim/pull/20130 is merged
     -- {

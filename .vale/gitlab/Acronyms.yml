@@ -178,6 +178,7 @@ exceptions:
   - SDN
   - SELF
   - SEO
+  - SET
   - SFTP
   - SHA
   - SIEM
@@ -229,6 +230,7 @@ exceptions:
   - XDR
   - XML
   - XSS
+  - XXE
   - YAML
   - ZAP
   - ZIP

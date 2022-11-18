@@ -29,6 +29,7 @@ M.config = function()
   lvim.builtin.refactoring.active = true
   lvim.builtin.test_runner.runner = "neotest"
   lvim.format_on_save = {
+    enabled = true,
     pattern = "*.rs",
     timeout = 2000,
     filter = require("lvim.lsp.utils").format_filter,
@@ -41,6 +42,7 @@ M.config = function()
   lvim.builtin.web_programming.active = true
   lvim.builtin.rust_programming.active = true
   lvim.builtin.borderless_cmp = true
+  lvim.builtin.colored_args = true
   -- require("lvim.lsp.manager").setup("prosemd_lsp", {})
 end
 
